@@ -34,7 +34,10 @@ class App extends Component {
     // es6
    
     axios.get(`http://dct-api-data.herokuapp.com/tickets?api_key=${key}`)
-      .then(response => this.setState(() => ({ tickets: response.data, filteredTickets: response.data })
+      .then(response => this.setState(() => ({ 
+          tickets: response.data, 
+          filteredTickets: response.data 
+        })
       ))
       .catch(err => console.log(err))
 
@@ -57,7 +60,8 @@ class App extends Component {
       .then(response => {
         if(response.data.notice) {
           this.setState((prevState) => ({
-            tickets: prevState.tickets.filter(ticketItem => ticketItem.ticket_code !== ticket.ticket_code)
+            tickets: prevState.tickets.filter(ticketItem => ticketItem.ticket_code !== ticket.ticket_code), 
+            filteredTickets: prevState.tickets.filter(ticketItem => ticketItem.ticket_code !== ticket.ticket_code)
           }))
         }
       })
@@ -78,6 +82,13 @@ class App extends Component {
           } else {
             return ticketItem
           }
+        }), 
+        filteredTickets: prevState.tickets.map(ticketItem => {
+          if (ticketItem.ticket_code === ticket.ticket_code) {
+            return Object.assign(ticketItem, response.data)
+          } else {
+            return ticketItem
+          }
         })
       }))
     })
@@ -87,15 +98,12 @@ class App extends Component {
   }
 
   handleSearch = (search) => {
-    // console.log(search)
     this.setState((prevState) => ({
       filteredTickets: prevState.tickets.filter(ticket => (ticket.ticket_code.toLowerCase().includes(search.toLowerCase())) || (ticket.name.toLowerCase().includes(search.toLowerCase())))
     }))
   }
 
   render() {
-    // console.log('render')
-    // console.log('state', this.state)
     return (
       <div>
         <h1>Ticket Master</h1>
