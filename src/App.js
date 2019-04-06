@@ -4,13 +4,15 @@ import axios from 'axios' // npm install --save axios
 
 import TicketTable from './TicketTable'
 import TicketForm from './TicketForm'
+import TicketSearch from './TicketSearch'
 
 class App extends Component {
   constructor() {
     // console.log('constructor')
     super()
     this.state = {
-      tickets: []
+      tickets: [],
+      filteredTickets: []
     }
   }
 
@@ -32,7 +34,7 @@ class App extends Component {
     // es6
    
     axios.get(`http://dct-api-data.herokuapp.com/tickets?api_key=${key}`)
-      .then(response => this.setState(() => ({ tickets: response.data })
+      .then(response => this.setState(() => ({ tickets: response.data, filteredTickets: response.data })
       ))
       .catch(err => console.log(err))
 
@@ -84,26 +86,33 @@ class App extends Component {
     })
   }
 
+  handleSearch = (search) => {
+    // console.log(search)
+    this.setState((prevState) => ({
+      filteredTickets: prevState.tickets.filter(ticket => (ticket.ticket_code.toLowerCase().includes(search.toLowerCase())) || (ticket.name.toLowerCase().includes(search.toLowerCase())))
+    }))
+  }
+
   render() {
     // console.log('render')
     // console.log('state', this.state)
     return (
       <div>
         <h1>Ticket Master</h1>
-        <h2>Listing Tickets - { this.state.tickets.length } </h2>
-
+        <h2>Listing Tickets - 
+           <small>showing {this.state.filteredTickets.length} of { this.state.tickets.length} </small>
+        </h2>
         {
           this.state.tickets.length === 0 ? (
             <p> No tickets found </p>
             ) :  (
               <div>
-                <TicketTable tickets={this.state.tickets} ticketStatus="All" handleRemove={this.handleRemove} handleChecked={this.handleChecked} />
+                <TicketSearch handleSearch={this.handleSearch} /> 
+                <TicketTable tickets={this.state.filteredTickets} ticketStatus="All" handleRemove={this.handleRemove} handleChecked={this.handleChecked} />
               </div>
-
             )
         }
-        
-
+      
         <TicketForm handleSubmit={this.handleSubmit} />
 
       </div>
