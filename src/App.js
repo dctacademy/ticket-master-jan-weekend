@@ -18,7 +18,8 @@ class App extends Component {
 
   handleSubmit = (ticket) => {
     this.setState((prevState) => ({
-      tickets: prevState.tickets.concat(ticket) 
+      tickets: prevState.tickets.concat(ticket),
+      filteredTickets: prevState.tickets.concat(ticket)
     }))
   }
 
