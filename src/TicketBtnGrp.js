@@ -2,19 +2,19 @@ import React from 'react'
 
 const TicketBtnGrp = (props) => {
     return(
-        <div>
+        <div className="btn-group">
             <button onClick={() => {
                 props.handleClick('all')
-            }}> All </button>
+            }} className="btn btn-secondary btn-sm"> All </button>
             <button onClick={() => {
                 props.handleClick('high')
-            }}> High </button>
+            }} className="btn btn-secondary btn-sm"> High </button>
             <button onClick={() => {
                 props.handleClick('medium')
-            }}> Medium </button>
+            }} className="btn btn-secondary btn-sm"> Medium </button>
             <button onClick={() => {
                 props.handleClick('low')
-            }}> Low </button>
+            }} className="btn btn-secondary btn-sm"> Low </button>
         </div> 
     )
 }

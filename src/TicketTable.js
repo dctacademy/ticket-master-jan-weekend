@@ -4,8 +4,8 @@ import React from 'react'
 const TicketTable = (props) => {
     return (
         <div>
-            <table border="1">
-                <thead>
+            <table className="table table-bordered">
+                <thead className="thead-dark">
                     <tr>
                         <th> Code </th>
                         <th> Name </th>
@@ -34,7 +34,7 @@ const TicketTable = (props) => {
                                         if(confirmDelete) {
                                             props.handleRemove(ticket)
                                         }
-                                    }}>
+                                    }} className="btn btn-outline-danger">
                                             remove
                                          </button> 
                                     </td>

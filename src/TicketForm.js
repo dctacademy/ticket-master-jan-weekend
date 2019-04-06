@@ -74,20 +74,25 @@ class TicketForm extends React.Component {
             <div>
                 <h2>Add Ticket</h2>
                 <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Name <br /> 
-                        <input type="text" value={this.state.name} name="name" onChange={this.handleChange} />
-                    </label> <br/> 
-
-                    <label>
-                        Department<br /> 
-                        <select value={this.state.department} onChange={this.handleChange} name="department">
-                            <option value=""> Select </option>
-                            <option value="technical"> Technical </option>
-                            <option value="sales"> Sales </option>
-                            <option value="hr"> Human Resource </option>
-                        </select>
-                    </label> <br/> 
+                    <div className="form-group">
+                        <label>
+                            Name <br />
+                            <input type="text" value={this.state.name} name="name" onChange={this.handleChange} className="form-control" />
+                        </label> 
+                    </div>
+                
+                    <div className="form-group">
+                        <label>
+                            Department<br />
+                            <select value={this.state.department} onChange={this.handleChange} name="department" className="form-control">
+                                <option value=""> Select </option>
+                                <option value="technical"> Technical </option>
+                                <option value="sales"> Sales </option>
+                                <option value="hr"> Human Resource </option>
+                            </select>
+                        </label>
+                    </div>
+                     
 
                     <label>
                         Priority<br /> 
@@ -99,14 +104,16 @@ class TicketForm extends React.Component {
                         </select>
                     </label> <br /> 
 
-                    <label>
-                        Message<br /> 
-                        <textarea value={this.state.message} onChange={this.handleChange} name="message">
-                        
-                        </textarea>
-                    </label> <br /> 
+                    <div>
+                        <label>
+                            Message<br />
+                            <textarea value={this.state.message} onChange={this.handleChange} name="message" className="form-control">
 
-                    <input type="submit" value="Add Ticket"/>
+                            </textarea>
+                        </label> 
+                    </div>
+                   
+                    <input type="submit" value="Add Ticket" className="btn btn-primary" />
 
                 </form> 
             </div>

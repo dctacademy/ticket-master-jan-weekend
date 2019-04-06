@@ -120,26 +120,43 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Ticket Master</h1>
-        <h2>Listing Tickets - 
-           <small>showing {this.state.filteredTickets.length} of { this.state.tickets.length} </small>
-        </h2>
-        {
-          this.state.tickets.length === 0 ? (
-            <p> No tickets found </p>
-            ) :  (
-              <div>
-                <TicketSearch handleSearch={this.handleSearch} /> 
-                <TicketBtnGrp handleClick={this.handleClick} />
+      <div className="container">
+        <div className="row"> 
+          <h2 className="display-4">Ticket Master</h2>
+        </div>
 
-                <TicketTable tickets={this.state.filteredTickets} ticketStatus="All" handleRemove={this.handleRemove} handleChecked={this.handleChecked} />
+        <div className="row">
+          <div className="col-md-8">
+
+            <div className="row mb-2">
+              <div className="col-md-6">
+                <h3>Listing Tickets -
+                   <small> {this.state.filteredTickets.length} of {this.state.tickets.length} </small>
+                </h3>
               </div>
-            )
-        }
-      
-        <TicketForm handleSubmit={this.handleSubmit} />
+              <div className="col-md-6">
+                <TicketSearch handleSearch={this.handleSearch} />
+                <TicketBtnGrp handleClick={this.handleClick} />
+              </div>
+            </div>
+            
+              {
+                this.state.tickets.length === 0 ? (
+                  <p> No tickets found </p>
+                  ) :  (
+                    <div>
+                      
 
+                      <TicketTable tickets={this.state.filteredTickets} ticketStatus="All" handleRemove={this.handleRemove} handleChecked={this.handleChecked} />
+                    </div>
+                  )
+              }
+          </div>
+
+          <div className="col-md-4">
+            <TicketForm handleSubmit={this.handleSubmit} />
+          </div>
+        </div> 
       </div>
     );
   }

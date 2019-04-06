@@ -18,7 +18,9 @@ class TicketSearch extends React.Component {
         return (
             <div>
                 <form>
-                    <input type="text" placeholder="search by code" value={this.state.search} onChange={this.handleChange} /> 
+                    <div className="form-group">
+                        <input type="text" placeholder="search by code" value={this.state.search} onChange={this.handleChange} className="form-control" /> 
+                    </div>
                 </form>
             </div> 
         )
