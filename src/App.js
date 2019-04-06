@@ -5,6 +5,7 @@ import axios from 'axios' // npm install --save axios
 import TicketTable from './TicketTable'
 import TicketForm from './TicketForm'
 import TicketSearch from './TicketSearch'
+import TicketBtnGrp from './TicketBtnGrp'
 
 class App extends Component {
   constructor() {
@@ -104,6 +105,19 @@ class App extends Component {
     }))
   }
 
+  handleClick = (priority) => {
+    if(priority === 'all') {
+      this.setState((prevState) => ({
+        // filteredTickets: [].concat(prevState.tickets)
+        filteredTickets: [...prevState.tickets]
+      }))
+    } else {
+      this.setState((prevState) => ({
+        filteredTickets: prevState.tickets.filter(ticket => ticket.priority === priority)
+      }))
+    }
+  }
+
   render() {
     return (
       <div>
@@ -117,6 +131,8 @@ class App extends Component {
             ) :  (
               <div>
                 <TicketSearch handleSearch={this.handleSearch} /> 
+                <TicketBtnGrp handleClick={this.handleClick} />
+
                 <TicketTable tickets={this.state.filteredTickets} ticketStatus="All" handleRemove={this.handleRemove} handleChecked={this.handleChecked} />
               </div>
             )
