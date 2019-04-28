@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Link, Switch } from 'react-router-dom'
 
 import TicketList from './components/tickets/List'
 import TicketNew from './components/tickets/New'
+import TicketShow from './components/tickets/Show'
 
 const App = (props) => {
   return (
@@ -14,8 +15,11 @@ const App = (props) => {
             </ul>
             
     
-        <Route path="/tickets" component={TicketList} exact={true} />
-        <Route path="/tickets/new" component={TicketNew}  />
+        <Switch>
+          <Route path="/tickets" component={TicketList} exact={true} />
+          <Route path="/tickets/new" component={TicketNew} exact={true} />
+          <Route path="/tickets/:id" component={TicketShow} />
+        </Switch>
       </div> 
     </BrowserRouter>
   )

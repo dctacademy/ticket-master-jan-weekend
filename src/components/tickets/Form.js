@@ -1,5 +1,6 @@
 import React from 'react' 
 import uuid from 'uuid'
+import Select from 'react-select'
 
 class TicketForm extends React.Component {
     constructor(props) {
@@ -7,9 +8,15 @@ class TicketForm extends React.Component {
         this.state = {
             name: '',
             department: '',
-            priority: '', 
-            message: ''
+            message: '', 
+            selectedPriorityOption: null
         }
+
+        this.priorityOptions = [
+            { value: 'high', label: 'high' },
+            { value: 'medium', label: 'medium' },
+            { value: 'low', label: 'low' }
+        ]
     }
 
     handleChange = (e) => {
@@ -19,19 +26,27 @@ class TicketForm extends React.Component {
         }))
     }
 
+    handlePriorityChange = (option) => {
+        this.setState(() => ({ selectedPriorityOption: option}))
+        console.log(option)
+    }
+
     handleSubmit = (e) => {
         e.preventDefault()
         const formData = {
             id: uuid(), 
             name: this.state.name,
             department: this.state.department,
-            priority: this.state.priority,
+            priority: this.state.selectedPriorOption.value,
             message: this.state.message
         }
         this.props.handleSubmit(formData)
     }
 
+    
+
     render() {
+        console.log(this.state)
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
@@ -55,15 +70,17 @@ class TicketForm extends React.Component {
                     </div>
 
 
-                    <label>
-                        Priority<br />
-                        <select value={this.state.priority} onChange={this.handleChange} name="priority" className="form-control">
-                            <option value=""> Select </option>
-                            <option value="high"> High </option>
-                            <option value="medium"> Medium </option>
-                            <option value="low"> Low </option>
-                        </select>
-                    </label> <br />
+                    <div className="react-select-container">
+                        <label>
+                            Priority<br />
+                            <Select
+                                value={this.state.selectedPriorityOption}
+                                options={this.priorityOptions}
+                                onChange={this.handlePriorityChange}
+                            />
+                        </label>    
+                    </div> 
+                
 
                     <div>
                         <label>

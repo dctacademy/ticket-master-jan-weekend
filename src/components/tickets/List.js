@@ -8,7 +8,7 @@ const TicketList = (props) => {
             <h1> Listing Tickets - { props.tickets.length} </h1>
             <ul>
                 { props.tickets.map(ticket => {
-                    return <li key={ticket.id}> { ticket.name } </li>
+                    return <li key={ticket.id}> <Link to={`/tickets/${ticket.id}`}>{ ticket.name } </Link> </li>
                 })}
             </ul>
 

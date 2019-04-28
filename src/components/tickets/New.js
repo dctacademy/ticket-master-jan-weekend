@@ -1,6 +1,8 @@
 import React from 'react' 
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import _ from 'lodash'
+
 import TicketForm from './Form'
 
 import { addTicket } from '../../actions/tickets'
@@ -24,8 +26,14 @@ const TicketNew = (props) => {
                 <div className="card">
                     <div className="card-body">
                         <h5 className="card-title">Last Ticket</h5>
-                        <p className="card-text"> { props.previousTicket.name } </p>
-                        <Link to={`/tickets/${props.previousTicket.id}`}>Show</Link>
+                        {   props.previousTicket ? (
+                                <React.Fragment> 
+                                    <p className="card-text"> {props.previousTicket.name} </p>
+                                    <Link to={`/tickets/${props.previousTicket.id}`}>Show</Link> 
+                                </React.Fragment>) : ( 
+                                    <p> This is the first ticket </p> 
+                                ) 
+                        }
                     </div>
                 </div>
             </div>
@@ -36,7 +44,7 @@ const TicketNew = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        previousTicket: state.tickets[state.tickets.length - 1]
+        previousTicket: _.last(state.tickets)
     }
 }   
 
