@@ -1,0 +1,126 @@
+1. create folders
+    components store actions reducer 
+
+2. npm install --save redux react-redux 
+
+3. in store create configureStore.js 
+
+    import { createStore, combineReducers } from 'redux'
+    import ticketsReducer from '../reducers/tickets'
+
+    const configureStore = () => {
+        const store = createStore(combineReducers({
+            tickets: ticketsReducer
+        }))
+        return store  
+    }
+
+    export default configureStore
+
+4. in reducers create tickets.js 
+
+    const ticketsInitialState = [] 
+    const ticketsReducer = (state = ticketsInitialState, action) => {
+        switch(action.type) {
+            default: 
+                return [...state]
+        }
+    }
+
+    export default ticketsReducer
+
+5. in index.js 
+
+    import configureStore from './store/configureStore'
+
+    const store = configureStore()
+
+    store.subscribe(() => {
+        console.log(store.getState())
+    })
+
+6. in actions/ create tickets.js 
+    export const addTicket = (ticket) => {
+        return {
+            type: 'ADD_TICKET', 
+            payload: ticket 
+        }
+    }
+
+7.  in index.js 
+    import { Provider } from 'react-redux' 
+    const app = (
+        <Provider store={store}>
+            <App /> 
+        </Provider>
+    )
+    ReactDOM.render(app , document.getElementById('root'));
+
+8. test if the redux is working  in index.js 
+
+    import { addTicket } from './actions/tickets'
+    store.dispatch(addTicket({ id: 1, name: 'ravi', message: 'net is down', department: 'technical', priority: 'high'}))
+
+9.  components/tickets and create List.js 
+    import React from 'react' 
+    import { connect } from 'react-redux'
+    const TicketList = (props) => {
+        console.log(props)
+        return (
+            <div>
+                <h1> Listing Tickets - { props.tickets.length} </h1>
+                <ul>
+                    { props.tickets.map(ticket => {
+                        return <li key={ticket.id}> { ticket.name } </li>
+                    })}
+                </ul>
+                <p>We are in { props.city }</p>
+            </div> 
+        )
+    }
+
+    // wrapped component - Higher Order Component (HOC) 
+
+    const mapStateToProps = (state) => {
+        return {
+            tickets: state.tickets,
+            city: 'bangalore'
+        }
+    }
+
+    export default connect(mapStateToProps)(TicketList)
+
+
+
+
+
+
+
+// Higher Order Function 
+
+// js treats functions as first class citizens 
+
+// const greet = function(){ }
+// const name = 'bangalore' 
+
+/*
+    function sayName(name) {
+        console.log(name)
+    }
+
+    sayName(name)
+
+    function execute(greet) {
+        greet()
+    }
+
+    execute(greet)
+
+    const numbers = [10,20,30,40]
+
+    numbers.forEach(function(){
+
+    })
+
+*/
+
